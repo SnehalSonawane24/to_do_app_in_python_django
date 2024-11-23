@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Task(models.Model):
     title = models.CharField(max_length=250)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     is_complete = models.BooleanField(default=False)
     priority = models.CharField(max_length=32)
     due_date = models.DateTimeField()
@@ -51,14 +51,14 @@ class TaskCategoryAssociation(models.Model):
         unique_together = ("task", "category")
 
 
-class UserTask(models.Model):
+class User(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = "User Task"
-        verbose_name = "User Task"
-        verbose_name_plural = "User Tasks"
+        db_table = "User"
+        verbose_name = "User"
+        verbose_name_plural = "Users"
         unique_together = ("user", "task")
 
     def __str__(self):
