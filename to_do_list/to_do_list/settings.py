@@ -41,6 +41,9 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'import_export',
+    'rest_framework',
+    'corsheaders',
+    'django_filters',
 ]
 
 INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS
@@ -48,6 +51,7 @@ INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
