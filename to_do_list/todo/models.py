@@ -7,19 +7,17 @@ class Task(models.Model):
     description = models.TextField(null=True, blank=True)
     is_complete = models.BooleanField(default=False)
     priority = models.CharField(max_length=32)
-    due_date = models.DateTimeField()
+    due_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = "Task"
+        verbose_name = "Task"
+        verbose_name_plural = "Tasks"
 
-class Meta:
-    db_table = "Task"
-    verbose_name = "Task"
-    verbose_name_plural = "Tasks"
-
-
-def __str__(self):
-    return f"{self.title} - {self.created_at} - {self.priority}"
+    def __str__(self):
+        return f"{self.title}"
 
 
 class Category(models.Model):
@@ -27,15 +25,13 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = "Category"
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
-class Meta:
-    db_table = "Category"
-    verbose_name = "Category"
-    verbose_name_plural = "Categories"
-
-
-def __str__(self):
-    return f"{self.name} - {self.created_at}"
+    def __str__(self):
+        return f"{self.name}"
 
 
 class TaskCategoryAssociation(models.Model):
@@ -50,6 +46,9 @@ class TaskCategoryAssociation(models.Model):
         verbose_name_plural = "Task Category Associations"
         unique_together = ("task", "category")
 
+    def __str__(self):
+        return f"{self.task.title} - {self.category.name}"
+
 
 class User(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -62,7 +61,7 @@ class User(models.Model):
         unique_together = ("user", "task")
 
     def __str__(self):
-        return f"{self.user} - {self.task}"
+        return f"{self.user} - {self.task.name}"
 
 
 class Subtask(models.Model):
@@ -79,4 +78,4 @@ class Subtask(models.Model):
         unique_together = ("task", "title")
 
     def __str__(self):
-        return f"{self.task} - {self.title}"
+        return f"{self.task.name} - {self.title}"

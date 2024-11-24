@@ -40,6 +40,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'import_export',
 ]
 
 INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS
